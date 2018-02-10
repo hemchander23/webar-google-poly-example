@@ -1,0 +1,67 @@
+<!-- Let's play around with Models from Google Poly -->
+<script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
+<script src="https://rawgit.com/jeromeetienne/ar.js/master/aframe/build/aframe-ar.js"></script>
+<script>THREEx.ArToolkitContext.baseURL = 'https://rawgit.com/jeromeetienne/ar.js/master/three.js/'</script>
+
+<body style='margin : 0px; overflow: hidden;'>
+    <a-scene scale="1.5 1.75 1.5" rotation="45 0 180" position="0 4 0" embedded arjs='sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3; debugUIEnabled: false;'>
+        <a-entity light="type: ambient; intensity: 0.5;"></a-entity>
+        <a-entity light="type: directional;
+        castShadow: true;
+        intensity: 0.65;"
+        position="-4 3 0"></a-entity>        
+        <a-assets>
+            <a-asset-item id="mario-obj" src="3d/mario.obj"></a-asset-item>
+            <a-asset-item id="mario-mtl" src="3d/mario.mtl"></a-asset-item>
+            <a-asset-item id="car-obj" src="3d/spaceship.obj"></a-asset-item>
+            <a-asset-item id="car-mtl" src="3d/spaceship.mtl"></a-asset-item>
+            <a-asset-item id="env-obj" src="3d/env.obj"></a-asset-item>
+            <a-asset-item id="env-mtl" src="3d/env.mtl"></a-asset-item>
+            <a-asset-item id="suit-obj" src="3d/suit.obj"></a-asset-item>
+            <a-asset-item id="suit-mtl" src="3d/suit.mtl"></a-asset-item>
+            <a-asset-item id="sheep-obj" src="3d/dog.obj"></a-asset-item>
+            <a-asset-item id="sheep-mtl" src="3d/dog.mtl"></a-asset-item>
+            <a-asset-item id="island-obj" src="3d/grass.obj"></a-asset-item>
+            <a-asset-item id="island-mtl" src="3d/grass.mtl"></a-asset-item>
+        </a-assets>  
+        <a-entity scale="10 10 10" shadow="receive: true" position="0 -0.75 2" rotation="0 180 0" obj-model="obj: #island-obj; mtl: #island-mtl">
+            
+        </a-entity>
+        
+        <a-entity scale="1 1 1" position="0 0 2" shadow="cast: true" obj-model="obj: #env-obj; mtl: #env-mtl">
+            
+        </a-entity>
+        <a-entity scale="0.4 0.4 0.4" shadow="cast: true" position="-1 0 1" obj-model="obj: #suit-obj; mtl: #suit-mtl">
+            
+        </a-entity>
+
+            <a-entity scale="0.6 0.5 0.6" shadow="cast: true"  obj-model="obj: #mario-obj; mtl: #mario-mtl">
+
+            </a-entity>
+            <a-entity shadow="receive: true" scale="0.5 0.5 0.5" light="type: directional;
+            castShadow: true;
+            intensity: 0.30;"  position="0.5 0.0 0" rotation="0 45 0" obj-model="obj: #sheep-obj; mtl: #sheep-mtl">
+                <a-animation attribute="rotation" dur="5000" direction="alternate"  from="0 -90 0" to="0 -170 0" repeat="indefinite">
+                </a-animation>
+                <a-animation attribute="position" dur="500" direction="alternate"  from="0.5 0.0 0" to="0.5 0.05 0" repeat="indefinite">
+                </a-animation>
+            </a-entity>
+
+            <a-entity  position="-1 1.5 0" shadow="cast: true" rotation="0 90 0" obj-model="obj: #car-obj; mtl: #car-mtl">
+                <a-animation attribute="position" dur="5000" direction="alternate"  from="3 2.5 0" to="-3 2.5 0" repeat="indefinite">
+                </a-animation>
+                
+                    <a-animation attribute="rotation" dur="5000" direction="alternate"  from="0 90 0" to="0 450 0" repeat="indefinite">
+                    </a-animation>
+                   
+            </a-entity>
+       
+       
+
+
+        <a-marker-camera preset='kanji'></a-marker-camera>
+    </a-scene>
+</body>
+<script>
+
+</script>
