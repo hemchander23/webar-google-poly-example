@@ -19,13 +19,9 @@
         Lets create a scene and rotate it accordingly. We assume the AR marker will be horizontal and on flat screen device. 
         Also Setting debugUIEnabled to false doesn't show the debug messages on screen. Keeps it clean.
     -->
-    <a-scene scale="1.5 1.75 1.5" rotation="45 0 180" position="0 4 0" embedded arjs='sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3; debugUIEnabled: false;'>
 
-        <a-entity light="type: ambient; intensity: 0.5;"></a-entity>
-        <!-- Directional Light that casts shadow-->
-        <a-entity light="type: directional;
-        castShadow: true;
-        intensity: 0.65;" position="-4 3 0"></a-entity>
+
+    <a-scene scale="2 2.25 2" rotation="45 0 180" position="0 4 0" embedded arjs='trackingMethod: best;debugUIEnabled: false'>
         <!-- Let's define all the assets here. Credits for the authors in the README.MD file :)   -->
         <a-assets>
             <a-asset-item id="mario-obj" src="3d/mario.obj"></a-asset-item>
@@ -41,46 +37,55 @@
             <a-asset-item id="island-obj" src="3d/grass.obj"></a-asset-item>
             <a-asset-item id="island-mtl" src="3d/grass.mtl"></a-asset-item>
         </a-assets>
-        <!-- The Ground / Island scaled and positioned. It will receive shadow from the objects placed above. Keepts it more realistic. -->
-        <a-entity scale="10 10 10" shadow="receive: true" position="0 -0.75 2" rotation="0 180 0" obj-model="obj: #island-obj; mtl: #island-mtl">
+        <a-anchor hit-testing-enabled='true'>
+            <a-entity light="type: ambient; intensity: 0.5;"></a-entity>
+            <!-- Directional Light that casts shadow-->
+            <a-entity light="type: directional;
+        castShadow: true;
+        intensity: 0.65;" position="-4 3 0"></a-entity>
 
-        </a-entity>
-        <!-- Let's add some trees and rocks. They cast shadow on the ground since shadow attribute is set to cast -->
-        <a-entity scale="1 1 1" position="0 0 2" shadow="cast: true" obj-model="obj: #env-obj; mtl: #env-mtl">
+            <!-- The Ground / Island scaled and positioned. It will receive shadow from the objects placed above. Keepts it more realistic. -->
+            <a-entity scale="10 10 10" shadow="receive: true" position="0 -0.75 2" rotation="0 180 0" obj-model="obj: #island-obj; mtl: #island-mtl">
 
-        </a-entity>
-        <!-- Suit case -->
-        <a-entity scale="0.4 0.4 0.4" shadow="cast: true" position="-1 0 1" obj-model="obj: #suit-obj; mtl: #suit-mtl">
+            </a-entity>
+            <!-- Let's add some trees and rocks. They cast shadow on the ground since shadow attribute is set to cast -->
+            <a-entity scale="1 1 1" position="0 0 2" shadow="cast: true" obj-model="obj: #env-obj; mtl: #env-mtl">
 
-        </a-entity>
-        <!-- Mario ! -->
-        <a-entity scale="0.6 0.5 0.6" shadow="cast: true" obj-model="obj: #mario-obj; mtl: #mario-mtl">
+            </a-entity>
+            <!-- Suit case -->
+            <a-entity scale="0.4 0.4 0.4" shadow="cast: true" position="-1 0 1" obj-model="obj: #suit-obj; mtl: #suit-mtl">
 
-        </a-entity>
-        <!-- Dog has animation. It is animated based on two properties : Rotation and Position -->
-        <a-entity shadow="receive: true" scale="0.5 0.5 0.5" light="type: directional;
+            </a-entity>
+            <!-- Mario ! -->
+            <a-entity scale="0.6 0.5 0.6" shadow="cast: true" obj-model="obj: #mario-obj; mtl: #mario-mtl">
+
+            </a-entity>
+            <!-- Dog has animation. It is animated based on two properties : Rotation and Position -->
+            <a-entity shadow="receive: true" scale="0.5 0.5 0.5" light="type: directional;
             castShadow: true;
             intensity: 0.30;" position="0.5 0.0 0" rotation="0 45 0" obj-model="obj: #dog-obj; mtl: #dog-mtl">
-            <a-animation attribute="rotation" dur="5000" direction="alternate" from="0 -90 0" to="0 -170 0" repeat="indefinite">
-            </a-animation>
-            <a-animation attribute="position" dur="500" direction="alternate" from="0.5 0.0 0" to="0.5 0.05 0" repeat="indefinite">
-            </a-animation>
-        </a-entity>
-        <!-- Animations are applied to flying saucer as well -->
-        <a-entity position="-1 1.5 0" shadow="cast: true" rotation="0 90 0" obj-model="obj: #saucer-obj; mtl: #saucer-mtl">
-            <a-animation attribute="position" dur="5000" direction="alternate" from="3 2.5 0" to="-3 2.5 0" repeat="indefinite">
-            </a-animation>
+                <a-animation attribute="rotation" dur="5000" direction="alternate" from="0 -90 0" to="0 -170 0" repeat="indefinite">
+                </a-animation>
+                <a-animation attribute="position" dur="500" direction="alternate" from="0.5 0.0 0" to="0.5 0.05 0" repeat="indefinite">
+                </a-animation>
+            </a-entity>
+            <!-- Animations are applied to flying saucer as well -->
+            <a-entity position="-1 1.5 0" shadow="cast: true" rotation="0 90 0" obj-model="obj: #saucer-obj; mtl: #saucer-mtl">
+                <a-animation attribute="position" dur="5000" direction="alternate" from="3 2.5 0" to="-3 2.5 0" repeat="indefinite">
+                </a-animation>
 
-            <a-animation attribute="rotation" dur="5000" direction="alternate" from="0 90 0" to="0 450 0" repeat="indefinite">
-            </a-animation>
+                <a-animation attribute="rotation" dur="5000" direction="alternate" from="0 90 0" to="0 450 0" repeat="indefinite">
+                </a-animation>
 
-        </a-entity>
+            </a-entity>
+        </a-anchor>
         <!-- We are using a default Kanji marker here. -->
         <a-marker-camera preset='kanji'></a-marker-camera>
     </a-scene>
+
 </body>
 <script>
-// Lets place some help text in case if some bug occurs. IGNORE this 
- document.body.innerHTML = document.body.innerHTML + "<div style='position:fixed;top:0px;left:1.25%;padding:2px;width:95%;height:40px;background:rgba(0,0,0,0.5);color:white;font-weight:bold;text-align:center;margin:5px;font-size:8px'>In case if the scene doesn't appear properly, point the phone camera to the ceiling and then scan the AR marker again :) ! Make sure that there is less glare on the screen</div>";
+    // Lets place some help text in case if some bug occurs. IGNORE this 
+    document.body.innerHTML = document.body.innerHTML + "<div style='position:fixed;top:0px;left:1.25%;padding:2px;width:95%;height:40px;background:rgba(0,0,0,0.5);color:white;font-weight:bold;text-align:center;margin:5px;font-size:8px'>In case if the scene doesn't appear properly, point the phone camera to the ceiling and then scan the AR marker again :) ! Make sure that there is less glare on the screen</div>";
 //You can delete this line to hide the info message that appears on screen
 </script>
