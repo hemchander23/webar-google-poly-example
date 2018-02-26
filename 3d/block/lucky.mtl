@@ -1,0 +1,16 @@
+# Exported from 3D Builder
+
+newmtl Black
+Kd 0.000000 0.000000 0.000000
+
+newmtl FFA542FF
+Kd 1.000000 0.647059 0.258824
+
+newmtl E75A10FF
+Kd 0.905882 0.352941 0.062745
+
+newmtl White
+Kd 0.878431 0.878431 0.878431
+
+newmtl White_0
+Kd 1.000000 1.000000 1.000000

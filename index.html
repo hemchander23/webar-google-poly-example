@@ -1,94 +1,112 @@
-<!-- 
-    AR.JS and Aframe.io for Web based Augmented Reality experience
-    - The AR marker is assumed to be vertical on a flatscreen device, hence the scene is rotated accordingly
-    - Example covers : 
-        - Creating & Setting Scene Params
-        - Use of Lights and Shadows in the scene
-        - Loading OBJ models from Google Poly
-        - Adding Multiple Simple Animations based on different properties
-        - Making use of Custom marker.
+<html>
+<script src="https://aframe.io/releases/0.6.1/aframe.js"></script>
+<script src="js/aframe-ar.js"></script>
+<script src="https://unpkg.com/aframe-text-component/dist/aframe-text-component.min.js"></script>
+<script src="js/index.js"></script>
 
-        Scan the Custom marker on the blog post : "Escape the flatland using Augmented/Virtual Reality" <- Google it
-
-        -Version down to support custom marker ?
-        -Update marker file and add JS resources
--->
-<script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
-<script src="https://rawgit.com/jeromeetienne/ar.js/master/aframe/build/aframe-ar.js"></script>
-<script>THREEx.ArToolkitContext.baseURL = 'https://rawgit.com/jeromeetienne/ar.js/master/three.js/'</script>
+<head>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+</head>
 
 <body style='margin : 0px; overflow: hidden;'>
-    <!-- 
-        Lets create a scene and rotate it accordingly. We assume the AR marker will be horizontal and on flat screen device. 
-        Also Setting debugUIEnabled to false doesn't show the debug messages on screen. Keeps it clean.
-    -->
+    <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false;trackingMethod: best'>
 
-
-    <a-scene scale="2 2.25 2" rotation="45 0 180" position="0 4 0" embedded arjs='trackingMethod: best;debugUIEnabled: false'>
-        <!-- Let's define all the assets here. Credits for the authors in the README.MD file :)   -->
         <a-assets>
+            <!-- <video id="pg" playsinline defaultMuted muted autoplay loop="true" src="V.mp4"></video> -->
             <a-asset-item id="mario-obj" src="3d/mario.obj"></a-asset-item>
             <a-asset-item id="mario-mtl" src="3d/mario.mtl"></a-asset-item>
-            <a-asset-item id="saucer-obj" src="3d/spaceship.obj"></a-asset-item>
-            <a-asset-item id="saucer-mtl" src="3d/spaceship.mtl"></a-asset-item>
-            <a-asset-item id="env-obj" src="3d/env.obj"></a-asset-item>
-            <a-asset-item id="env-mtl" src="3d/env.mtl"></a-asset-item>
-            <a-asset-item id="suit-obj" src="3d/suit.obj"></a-asset-item>
-            <a-asset-item id="suit-mtl" src="3d/suit.mtl"></a-asset-item>
-            <a-asset-item id="dog-obj" src="3d/dog.obj"></a-asset-item>
-            <a-asset-item id="dog-mtl" src="3d/dog.mtl"></a-asset-item>
-            <a-asset-item id="island-obj" src="3d/grass.obj"></a-asset-item>
-            <a-asset-item id="island-mtl" src="3d/grass.mtl"></a-asset-item>
+            <a-asset-item id="hello-obj" src="3d/hello.obj"></a-asset-item>
+            <a-asset-item id="hello-mtl" src="3d/hello.mtl"></a-asset-item>
+
+            <a-asset-item id="qbz-obj" src="3d/block/lucky.obj"></a-asset-item>
+            <a-asset-item id="qbz-mtl" src="3d/block/lucky.mtl"></a-asset-item>
+            <a-asset-item id="coin-obj" src="3d/lucky/coin.obj"></a-asset-item>
+            <a-asset-item id="coin-mtl" src="3d/lucky/coin.mtl"></a-asset-item>
+            <video id="hyper" playsinline defaultMuted muted autoplay loop="true" src="compressed/hyper.mp4"></video>
+            <video id="magic" playsinline defaultMuted muted autoplay loop="true" src="compressed/magicleap.mp4"></video>
+            <video id="thysen" playsinline defaultMuted muted autoplay loop="true" src="compressed/thysen.mp4"></video>
+            <video id="constr" playsinline defaultMuted muted autoplay loop="true" src="compressed/vrconst.mp4"></video>
         </a-assets>
-        <a-anchor hit-testing-enabled='true'>
-            <a-entity light="type: ambient; intensity: 0.5;"></a-entity>
-            <!-- Directional Light that casts shadow-->
-            <a-entity light="type: directional;
-        castShadow: true;
-        intensity: 0.65;" position="-4 3 0"></a-entity>
+        <!-- The intro section plays the hyper reality video! -->
+        <!-- <a-marker preset="kanji" id="Intro">
+                    <a-video rotation="0 0 180" width="3" src="#pg" autoplay="true"></a-video>
+                </a-marker> -->
 
-            <!-- The Ground / Island scaled and positioned. It will receive shadow from the objects placed above. Keepts it more realistic. -->
-            <a-entity scale="10 10 10" shadow="receive: true" position="0 -0.75 2" rotation="0 180 0" obj-model="obj: #island-obj; mtl: #island-mtl">
+        <a-marker type='pattern' url='marker/heart.patt' id="argame">
+            <!-- <a-video rotation="0 0 180" width="3" src="#pg" autoplay="true"></a-video>
+                     -->
 
+            <a-entity id="brick" scale="0.005 0.005 0.005" sound="src: url(coin.mp3); on: click" position="0 0 0" rotation="45 0 180"
+                shadow="cast: true" obj-model="obj: #qbz-obj; mtl: #qbz-mtl">
+                <!-- <a-animation begin="mouseenter" fill="forwards" repeat="1" direction="alternate" attribute="position" from="0 0 0" to="0 -0.2 0"
+                    dur="500"></a-animation> -->
             </a-entity>
-            <!-- Let's add some trees and rocks. They cast shadow on the ground since shadow attribute is set to cast -->
-            <a-entity scale="1 1 1" position="0 0 2" shadow="cast: true" obj-model="obj: #env-obj; mtl: #env-mtl">
 
-            </a-entity>
-            <!-- Suit case -->
-            <a-entity scale="0.4 0.4 0.4" shadow="cast: true" position="-1 0 1" obj-model="obj: #suit-obj; mtl: #suit-mtl">
-
-            </a-entity>
-            <!-- Mario ! -->
-            <a-entity scale="0.6 0.5 0.6" shadow="cast: true" obj-model="obj: #mario-obj; mtl: #mario-mtl">
-
-            </a-entity>
-            <!-- Dog has animation. It is animated based on two properties : Rotation and Position -->
-            <a-entity shadow="receive: true" scale="0.5 0.5 0.5" light="type: directional;
-            castShadow: true;
-            intensity: 0.30;" position="0.5 0.0 0" rotation="0 45 0" obj-model="obj: #dog-obj; mtl: #dog-mtl">
-                <a-animation attribute="rotation" dur="5000" direction="alternate" from="0 -90 0" to="0 -170 0" repeat="indefinite">
+            <a-entity id="coix" scale="1 1 1" rotation="45 0 180" position="0 -1 0" shadow="cast: true" obj-model="obj: #coin-obj; mtl: #coin-mtl">
+                <a-animation attribute="rotation" dur="400" direction="alternate" from="45 0 0" to="45 360 0" repeat="indefinite">
                 </a-animation>
-                <a-animation attribute="position" dur="500" direction="alternate" from="0.5 0.0 0" to="0.5 0.05 0" repeat="indefinite">
+                <a-animation attribute="position" dur="400" direction="alternate" from="0 0 0" to="0 -1 0" repeat="indefinite">
                 </a-animation>
             </a-entity>
-            <!-- Animations are applied to flying saucer as well -->
-            <a-entity position="-1 1.5 0" shadow="cast: true" rotation="0 90 0" obj-model="obj: #saucer-obj; mtl: #saucer-mtl">
-                <a-animation attribute="position" dur="5000" direction="alternate" from="3 2.5 0" to="-3 2.5 0" repeat="indefinite">
-                </a-animation>
+        </a-marker>
+        <a-marker type='pattern' url='marker/box.patt' id="hyperreality">
+            <a-video position="-1 0 0" rotation="0 180 180" width="3" src="#hyper" autoplay="true"></a-video>
+        </a-marker>
 
-                <a-animation attribute="rotation" dur="5000" direction="alternate" from="0 90 0" to="0 450 0" repeat="indefinite">
-                </a-animation>
+        <a-marker type='pattern' url='marker/vrcon.patt' id="vrcont">
+            <a-video position="-1 0 0" rotation="0 180 180" width="3" src="#constr" autoplay="true"></a-video>
+        </a-marker>
 
+        <a-marker type='pattern' url='marker/heart.patt' id="magicleap">
+            <a-video position="-1 0 0" rotation="0 180 180" width="3" src="#magic" autoplay="true"></a-video>
+        </a-marker>
+
+        <a-marker type='pattern' url='marker/thysen.patt' id="thysen">
+            <a-video position="-1 0 0" rotation="0 180 180" width="3" src="#thysen" autoplay="true"></a-video>
+        </a-marker>
+
+        <!-- define a simple camera -->
+        <a-entity camera>
+            <a-entity cursor="fuse: true; fuseTimeout: 1250" position="0 0 -1" geometry="primitive: ring; radiusInner: 0.005; radiusOuter: 0.01"
+                material="color: black; shader: flat">
             </a-entity>
-        </a-anchor>
-        <!-- We are using a default Kanji marker here. -->
-        <a-marker-camera preset='kanji'></a-marker-camera>
+        </a-entity>
     </a-scene>
-
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
 </body>
+
 <script>
-    // Lets place some help text in case if some bug occurs. IGNORE this 
-    document.body.innerHTML = document.body.innerHTML + "<div style='position:fixed;top:0px;left:1.25%;padding:2px;width:95%;height:40px;background:rgba(0,0,0,0.5);color:white;font-weight:bold;text-align:center;margin:5px;font-size:8px'>In case if the scene doesn't appear properly, point the phone camera to the ceiling and then scan the AR marker again :) ! Make sure that there is less glare on the screen</div>";
-//You can delete this line to hide the info message that appears on screen
+    setInterval(function () {
+        var video = document.getElementById('hyper');
+        video.play();
+    }, 1000);
+
+    setInterval(function () {
+        var video = document.getElementById('magic');
+        video.play();
+    }, 1000);
+
+    setInterval(function () {
+        var video = document.getElementById('thysen');
+        video.play();
+    }, 1000);
+
+    setInterval(function () {
+        var video = document.getElementById('constr');
+        video.play();
+    }, 1000);
+
+    var targetEl = document.querySelector('#brick');
+    targetEl.addEventListener('click', function () {
+        setTimeout(function () {
+            document.querySelector('#coix').setAttribute('visible', false);
+        }, 1000);
+        document.querySelector('#coix').setAttribute('visible', true);
+        // alert("HHA");
+    });
+
+
 </script>
+
+</html>

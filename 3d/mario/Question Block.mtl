@@ -1,0 +1,31 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# File Created: 21.12.2014 19:55:50
+
+newmtl BlockQuestionMat00
+	Ns 30.000002
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 1.000000 1.000000 1.000000
+	Kd 1.000000 1.000000 1.000000
+	Ks 0.031373 0.031373 0.031373
+	Ke 0.000000 0.000000 0.000000
+	map_Ka object_sm01_BlockQuestion00_dif.png
+	map_Kd object_sm01_BlockQuestion00_dif.png
+
+newmtl BlockQuestionMat01
+	Ns 30.000002
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 1.000000 1.000000 1.000000
+	Kd 1.000000 1.000000 1.000000
+	Ks 0.101961 0.101961 0.101961
+	Ke 0.000000 0.000000 0.000000
+	map_Ka object_sm01_BlockQuestion01_dif.png
+	map_Kd object_sm01_BlockQuestion01_dif.png
+	map_d object_sm01_BlockQuestion01_dif.png
