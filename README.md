@@ -19,14 +19,10 @@ A really simple example to demonstrate the ease and use of AR.js,AFrame and Goog
 
         Scan the Kanji marker on the blog post : **"Escape the flatland using Augmented/Virtual Reality"** <- Google it
                 
-Go to https://he.ms/ar in order to experience Web AR/VR. No additional app installation is required
+Go to https://he.ms/ar2 in order to experience Web AR/VR. No additional app installation is required
 
 <img src='https://raw.githubusercontent.com/hemchander23/webar-google-poly-example/master/screenshot/Screenshot.png' align='middle' height='700px' />
 
-**or**
-Scan this QR code 
-
-<img src='https://raw.githubusercontent.com/hemchander23/webar-google-poly-example/master/screenshot/WebAR_Link.jpg'  />
     
 **Google Poly Model Credits:**
 
